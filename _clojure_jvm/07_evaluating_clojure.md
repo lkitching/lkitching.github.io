@@ -15,7 +15,7 @@ curl -LO https://repo1.maven.org/maven2/org/clojure/spec.alpha/0.3.218/spec.alph
 curl -LO https://repo1.maven.org/maven2/org/clojure/core.specs.alpha/0.2.62/core.specs.alpha-0.2.62.jar
 ```
 
-this should leave you with `clojure-1.11.1.jar`, `spec.alpha-0.3.218.jar` and `core.specs.alpha-0.2.62.jar` in the current directory.
+This should leave you with `clojure-1.11.1.jar`, `spec.alpha-0.3.218.jar` and `core.specs.alpha-0.2.62.jar` in the current directory.
 
 ## clojure.main
 
@@ -31,9 +31,9 @@ Hello world!
 
 ### Locating Clojure files
 
-Most Clojure code is written to file and located and evaluated by the Clojure runtime during program execution. Similar to Java class files,
+Most Clojure code is written to files and located and evaluated by the Clojure runtime during program execution. Similar to Java class files,
 Clojure source files are located on the classpath. When a namespace is loaded, the namespace name is converted to a set of relative locations on the
-classpath the namespace could be defined in. The conversion process is as follows:
+classpath where the namespace could be defined. The conversion process is as follows:
 
 1. Convert any `.` characters in the namespace name to `/`s
 2. Convert any `-` characters in the namespace name to `_`s
@@ -70,7 +70,7 @@ into JAR files for easier distribution. As with `.class` files this can be done 
 
      > jar --create --file lib-hello.jar -C src .
 
-this packages the contents of the `src` directory into `lib-hello.jar` and this can be placed on the classpath as before:
+This packages the contents of the `src` directory into `lib-hello.jar` and this can be placed on the classpath as before:
 
 ```
 > java -cp clojure-1.11.1.jar:core.specs.alpha-0.2.62.jar:spec.alpha-0.3.218.jar:lib-hello.jar clojure.main -m org.picosoft.lib-hello.core

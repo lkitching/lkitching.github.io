@@ -7,9 +7,9 @@ So far we've seen how Java files are compiled to class files and collected into 
 so they can be located at program execution time. Tools like Maven are used to manage dependencies and build the required
 classpath to make them all available.
 
-The existing Java ecosystem is built around publishing JARs to binary repositories, and like Java, Clojure code can be packaged into JAR files, 
-whether it has been compiled ahead-of-time or is being distributed as source. Many Clojure libraries are published to the [clojars](https://clojars.org/)
-repository instead of Maven central. However, since directories can be placed on the classpath, and Clojure code can be located
+The existing Java ecosystem is built around publishing JARs to binary repositories, and, like Java, Clojure code can be packaged into JAR files, 
+whether it has been compiled ahead-of-time or is being distributed as source. Many Clojure libraries are published to the [Clojars](https://clojars.org/)
+repository instead of Maven Central. However, since directories can be placed on the classpath, and Clojure code can be located
 and evaluated directly from source, the extra packaging and publish steps are not necessary for developing Clojure libraries and programs.
 
 The [tools.deps](https://github.com/clojure/tools.deps) library is used to declare dependencies from various sources and build the required
@@ -36,7 +36,7 @@ Now we can create a basic deps project. The structure of the project is defined 
 {% include code/deps/basic/deps.edn %}
 ```
 
-This declares a dependency on the main `clojure` JAR. This JAR is published to Maven central so should be resolved as a Maven dependency.
+This declares a dependency on the main `clojure` JAR. This JAR is published to Maven Central so should be resolved as a Maven dependency.
 This JAR and all of its transitive dependencies should be available on the classpath at runtime. The `src` directory should also be placed
 on the classpath since that is where our application namespaces are defined. Define the main namespace within this directory:
 
@@ -52,14 +52,14 @@ The `clojure` CLI allows us to invoke `clojure.main` with the project classpath 
 Hello everyone!
 ```
 
-you can display the computed classpath with
+You can display the computed classpath with
 
 ```
 > clojure -Spath
 src:~/.m2/repository/org/clojure/clojure/1.11.1/clojure-1.11.1.jar:...
 ```
 
-as expected, it contains our `src` directory and the JAR files for the Clojure JAR and all its dependencies.
+As expected, it contains our `src` directory and the JAR files for the Clojure JAR and all its dependencies.
 
 ### System and user deps
 
@@ -72,7 +72,7 @@ refered to as the `system` and `user` files. You can find the locations of all t
  :config-files ["/install/dir/deps.edn", "~/.clojure/deps.edn", "deps.edn"]
 ```
 
-If you open the first of these (the system project file) you will see it has default settings for the `:paths` and `:deps` properties
+If you open the first of these (the system project file), you will see it has default settings for the `:paths` and `:deps` properties
 
 **/install/dir/deps.edn**
 ```clojure
@@ -93,7 +93,7 @@ This means we could use these defaults in our project and our project `deps.edn`
 ## Aliases
 
 At different points of the development process, you might want to make additional dependencies available or add more directories to the classpath.
-This can be done by specifying _aliases_ with in the project `deps.edn` and supplying them to the `clojure` command where required. For example, during
+This can be done by specifying _aliases_ within the project `deps.edn` and supplying them to the `clojure` command where required. For example, during
 development, you might want to use [scope capture](https://github.com/vvvvalvalval/scope-capture) to help with debugging at the REPL. This isn't a dependency
 of the main application, so shouldn't be distributed with it.
 
@@ -104,7 +104,7 @@ You can define a `dev` alias within the project `deps.edn` file
 {% include code/deps/aliases/deps.edn %}
 ```
 
-then supply it when starting the REPL:
+Then supply it when starting the REPL:
 
 ```
 > clojure -A:dev
@@ -115,10 +115,10 @@ user=>
 
 ## Other dependency sources
 
-The Clojure JARs are published to Maven central so are declared as Maven dependencies in the previous `deps.edn`. Deps supports other dependency
+The Clojure JARs are published to Maven Central so are declared as Maven dependencies in the previous `deps.edn`. Deps supports other dependency
 types such as Git repositories and local directories.
 
-We've decided to improve our greeting application by adding an optional command-line flag to show enthusiasm (or not). We also decide to split the
+We've decided to improve our greeting application by adding an optional command-line flag to show enthusiasm (or not). We also decided to split the
 core greeting functionality into its own library. Since it's under active development, we just want to refer to it locally for now before we're ready
 to publish the first version.
 

@@ -3,7 +3,7 @@ layout: post
 title: Compiling Clojure
 ---
 
-We saw previously how Clojure source code is located on the classpath, read and evaluated. It also supports defining classes which can be compiled
+We saw previously how Clojure source code is located on the classpath, read and evaluated. Clojure also supports defining classes which can be compiled
 into `.class` files with [gen-class](https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/gen-class). The following example defines
 two classes with `gen-class`:
 
@@ -38,7 +38,7 @@ The generated class methods simply delegate to Clojure functions with the approp
 of `greeter-`, so its `greet` method delegates to the function `greeter-greet` within the implementation namespace (by default the current namespace). Similarly, the `main`
 method of the `greet.main` class should be defined by a `-main` function.
 
-The `main` class can now be invoked as with another other main Java class:
+The `main` class can now be invoked as with any other Java main class:
 
 ```
 > java -cp classes:clojure-1.11.1.jar:core.specs.alpha-0.2.62.jar:spec.alpha-0.3.218.jar greet.main everyone
@@ -47,9 +47,9 @@ Hello everyone!
 
 ## Namespace compilation
 
-The `ns` function used to define namespaces supports an optional `:gen-class` option to compile a class for the namespace.
+The `ns` macro used to define namespaces supports an optional `:gen-class` option to compile a class for the namespace.
 It supports all the options of [gen-class](https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/gen-class)
-and by default uses the namespace name as the class name, sets `:main` to `true`, and sets the prefix to '-'. This means
+and by default uses the namespace name as the class name, sets `:main` to `true`, and sets the prefix to `-`. This means
 a `-main` function is expected to exist which corresponds to the `main` method of the generated class.
 
 This allows us to write straightforward Clojure code which is compiled into a Java entrypoint without having to invoke it via
@@ -76,7 +76,7 @@ Hello everyone!
 
 ## Clojure uberjars
 
-Now we can create Java entrypoints for our Clojure applications, we can create 'fat' JARs by including the Clojure JARs along with
+Now that we can create Java entrypoints for our Clojure applications, we can create 'fat' JARs by including the Clojure JARs along with
 the application source files and any compiled classes. As before, we need to define a manifest file which specifies the main class
 
 **manifest.mf**

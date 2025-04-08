@@ -12,8 +12,8 @@ Each release of the Java platform has a corresponding JDK for development.
 
 ## Java Virtual Machine
 
-The JVM is a virtual machine which defines its own instruction set, referred to a Java bytecode. The process of locating, loading, verifying and executing this bytecode is
-define by the [JVM specification](https://docs.oracle.com/javase/specs/jvms/se20/html/index.html). After installing a Java distribution, the JVM can be invoked via the `java`
+The JVM is a virtual machine which defines its own instruction set, referred to as Java bytecode. The process of locating, loading, verifying and executing this bytecode is
+defined by the [JVM specification](https://docs.oracle.com/javase/specs/jvms/se20/html/index.html). After installing a Java distribution, the JVM can be invoked via the `java`
 command.
 
 ## Java Development Kit

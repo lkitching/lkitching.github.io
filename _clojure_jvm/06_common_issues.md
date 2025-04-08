@@ -23,8 +23,8 @@ can be quite large, and it's not uncommon to come across unknown classes deep in
 #### Statically
 
 Most project management tools such as Maven, Leiningen or tools.deps have tasks to output the current classpath. There are usually
-multiple classpaths within a project depending on the context. A common example is adding extra dependencies are resource directories
-when running tests. As we saw previously, the classpath for a Maven project can be retreived with
+multiple classpaths within a project depending on the context. A common example is adding extra dependencies or resource directories
+when running tests. As we saw previously, the classpath for a Maven project can be retrieved with
 
     mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt
 
@@ -44,7 +44,7 @@ then get the properties of the running process
 
     jinfo -sysprops <PID>
 
-again the `java.class.path` property contains the classpath of the process.
+Again the `java.class.path` property contains the classpath of the process.
 
 ## UnsupportedClassVersionError
 
@@ -61,21 +61,21 @@ This error usually occurs when an application is compiled against one version of
 {% include code/common_issues/version1/Greeter.java %}
 ```
 
-after some time, a new version of this class is created with a new method:
+After some time, a new version of this class is created with a new method:
 
 **version2/Greeter.java**
 ```java
 {% include code/common_issues/version2/Greeter.java %}
 ```
 
-an application is created which uses the newer version:
+An application is created which uses the newer version:
 
 **GreetApp.java**
 ```java
 {% include code/common_issues/GreetApp.java %}
 ```
 
-compiling both class versions and the application against the newer version
+Compiling both class versions and the application against the newer version
 
 ```
 pushd version1 && javac Greeter.java && popd
@@ -83,11 +83,11 @@ pushd version2 && javac Greeter.java && popd
 javac -cp .:version2 GreetApp.java
 ```
 
-running the application with the new version on the classpath works as expected:
+Running the application with the new version on the classpath works as expected:
 
     java -cp .:version2 GreetApp
 
-running with the old version on the classpath results in an error:
+Running with the old version on the classpath results in an error:
 
 ```
 > java -cp .:version1 GreetApp
@@ -105,7 +105,7 @@ the `-verbose:class` option to the JVM
 
 This outputs the location each class is loaded from. Writing this to file or filtering with `grep` should allow you
 to find where the class is located on the classpath. This will usually be a JAR file, and if fetched from a Maven repository
-will contain the artifact name and version number in the name.
+will contain the artifact name and version number in the filename.
 
 The next step is deciding where you expect the class to be loaded from - this might be a different library entirely, or a different
 version of the same library.
@@ -115,7 +115,7 @@ somewhere in your dependency list.
 
 ## ServiceLoader errors
 
-Java [ServiceLoaders](https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/ServiceLoader.html) an extensible mechanism for
+Java [ServiceLoaders](https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/ServiceLoader.html) are an extensible mechanism for
 locating and loading service classes at runtime. They work by first defining an interface or class e.g.
 
 ```java
@@ -135,7 +135,7 @@ public class PostgresMessageSourceFactory implements MessageSourceFactory { ... 
 public class MySqlMessageSourceFactory implements MessageSourceFactory { ... }
 ```
 
-these would then be listed as implementation classes within the corresponding interface service file:
+These would then be listed as implementation classes within the corresponding interface service file:
 
 **META-INF/services/com.picosoft.messaging.MessageSourceFactory**
 ```
@@ -143,11 +143,11 @@ com.picosoft.messaging.db.PostgresMessageSourceFactory
 com.picosoft.messaging.db.MySqlMessageSourceFactory
 ```
 
-when the implementation JAR is on the classpath these classes can be located and loaded via the `ServiceLoader` interface.
+When the implementation JAR is on the classpath, these classes can be located and loaded via the `ServiceLoader` interface.
 
 Special care must be taken when building an uberjar containing service loader classes. Multiple implementation JARs will define
-the same `META-INF/services/{service.class}` file. The default conflict handling behaviour when building uberjars is 'last one wins' for
-files at the same path. For service loaders, conflicting files should be concatenated together so all implementation classes are
+the same `META-INF/services/{service.class}` file. When building uberjars, the default conflict handling behaviour for
+files at the same path is 'last one wins'. For service loaders, conflicting files should be concatenated together so all implementation classes are
 listed in the final JAR.
 
 ## Uberjar path conflicts

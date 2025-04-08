@@ -37,8 +37,8 @@ They contain a sequence of sections
 
 1. [Magic number](#magic-number)
 2. [Version number](#version-number)
-3. [Constant pool](#constant-pool)
-4. [Class properties](#class-properties)
+3. [Class properties](#class-properties)
+4. [Constant pool](#constant-pool)
 5. Interfaces
 6. Fields
 7. [Methods](#methods)
@@ -68,8 +68,8 @@ which means it is only supported by versions 14 or higher of the JVM. Attempting
 
 ## Class properties 
 
-The `flags`, `this_class` and `super_class` entries define the access properties and names of the defined class and its direct superclass. The `Hello` does not explicitly
-declare a superclass, so it is implicitly `java.lang.Object`. 
+The `flags`, `this_class` and `super_class` entries define the access properties and names of the defined class and its direct superclass. The `test.Hello` class does not explicitly
+declare a superclass, so it is implicitly a subclass of `java.lang.Object`. 
 
 ## Constant pool
 
@@ -88,12 +88,12 @@ Within class files, descriptors are used to define the types of fields and metho
 #### Field descriptors
 
 JVM types are either one of the primitive types, an object type or an array type. The grammar for
-fields descriptors denote one of these three possibilities.
+field descriptors denotes one of these three possibilities.
 
-The primitive types are `byte`, `char`, `double`, `float`, `int`, `long`, `short` and `boolean` and these are denoted as `B`, `C`, `D`, `F`, `I`, `J`, `S` and `Z` respectively within
+The primitive types are `byte`, `char`, `double`, `float`, `int`, `long`, `short` and `boolean`, denoted as `B`, `C`, `D`, `F`, `I`, `J`, `S` and `Z` respectively within
 the field descriptor grammar. For example, a descriptor of `J` indicates a field of the primitive `long` type.
 
-Object types are defined with the literal `L` followed by the binary name of the class type followed by the literal ';'. For example a field of type `java.lang.Thead` has a descriptor of `Ljava/lang/Thread;`.
+Object types are defined with the literal `L` followed by the binary name of the class type followed by the literal `;`. For example a field of type `java.lang.Thead` has a descriptor of `Ljava/lang/Thread;`.
 
 Array types are defined with the literal `[` followed by the element type. So an array of `java.lang.Thread` references has a descriptor of `[Ljava/lang/Thread;` and an array of primitive `int` values
 has a descriptor of `[I`.
@@ -103,7 +103,7 @@ has a descriptor of `[I`.
 Methods take a (possibly empty) collection of arguments and optionally return a value. Methods which do not return a value are given a return type of `void` (denoted by `V`) within method descriptors.
 Methods which return a value use the grammar for field descriptors to denote the return type.
 
-Method descriptors consist of a literal `(`, the corresponding field descriptor for each parameter type in sequence, a literal `)` followed by the return type descriptor. This can be either `V` for `void` methods,
+Method descriptors consist of a literal `(`, the corresponding field descriptor for each parameter type in sequence, a literal `)` followed by the return type descriptor. This can be either `V` for `void` methods
 or a field descriptor for the return type.
 
 For example the method `public String test(int i, boolean b, Object o)` has a method descriptor of `(IZLjava/lang/Object;)Ljava/lang/String;`.
@@ -119,7 +119,7 @@ Here are the references made by the `test.Hello` class:
 | #8   | `java/lang/System` | Class | Class which defines the static `out` field |
 | #7   | `java/lang/System::out` | Field | Reference to the `out` field of the `java.lang.System` class |
 | #12 | `Ljava/io/PrintStream;` | Type reference | The declared type of the `System.out` field |
-| #13 | | String | The string constant "Hello world!" |
+| #13 | | String | The String constant "Hello world!" |
 | #16 | `java/io/PrintStream` | Class | Type defining the `println` method |
 | #15 | `java/io/PrintStream::println` | Method | The `println` method used to write to the console |
 | #21 | `test/Hello` | Class | The class defined by this class file. The `this_class` property contains this index into the constant pool |
@@ -127,11 +127,11 @@ Here are the references made by the `test.Hello` class:
 
 ## Methods
 
-Entries in the method table define the name, attributes (access modifiers etc.) and JVM opcodes for the methods defined by the class.
+Entries in the methods table define the name, attributes (access modifiers etc.) and JVM opcodes for the methods defined by the class.
 
 ### Instruction format
 
-JVM instructions are variable-length and consist of an `opcode` which defines the operation, and a (possibly empty) sequence of operands. `javap` displays
+JVM instructions are variable-length and consist of an `opcode`, which defines the operation, and a (possibly empty) sequence of operands. `javap` displays
 each instruction in the following format:
 
     <index> <opcode> [ <operand1>, ..., <operandN> ] [ <comment> ]
@@ -150,9 +150,9 @@ store values from the top of the stack into local variables, and some consume mu
 
 #### Arguments
 
-In order to invoke a method, its arguments are pushed in order onto the operand stack, and the method is invoked via a method reference in the class constant pool.
+In order to invoke a method, its arguments are pushed in order onto the operand stack and the method is invoked via a method reference in the class constant pool.
 
-Instance methods are invoked via the `invokevirtual` instruction, and have a first argument which is a reference to the object the method is being invoked on (the receiver).
+Instance methods are invoked via the `invokevirtual` instruction and have a first argument which is a reference to the object the method is being invoked on (the receiver).
 Static methods are invoked with `invokestatic` and only the explicit arguments are pushed prior to invocation.
 
 Within a method, the arguments are loaded onto the operand stack with a family of opcode instructions (`aload`, `iload` etc.).
@@ -176,9 +176,9 @@ public test.Hello();
         line 3: 0
 ```
 
-The constructor declares no format parameters, and returns `void` as shown by the descriptor. It does require a single parameter however - the
+The constructor declares no formal parameters and returns `void` as shown by the descriptor. It does require a single parameter however - the
 reference to the new object being initialised. This is loaded onto the operand stack with the [aload_0](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.aload_n)
-instruction. The `java.lang.Object` constructor is then invoked in the same way, passing the reference just loaded as the first argument. The [invokespecial](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.invokespecial)
+instruction. The `java.lang.Object` constructor is then invoked in the same way, passing the reference just loaded as the first argument. The [invokespecial](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.invokespecial) instruction
 is similar to `invokevirtual` and `invokestatic` but is required to invoke constructors and superclass methods. The operand to the `invokespecial` instruction is an index into the constant pool
 of the `test.Hello` class. The element at index `#1` is a method reference to the `java/lang/Object.<init>` method as indicated by the comment.
 
@@ -199,14 +199,14 @@ public static void main(java.lang.String[]);
         line 6: 8
 ```
 
-As indicated by the descriptor, The `main` method defines a single `String[]` parameter and has a return type of `void`. 
+As indicated by the descriptor, the `main` method defines a single `String[]` parameter and has a return type of `void`. 
 The flags also indicate the method is `static` and `public`.
 
-The [getstatic](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.getstatic) instruction, loads a field reference onto the operand stack. The operand of `#7` is the index of the reference to the
+The [getstatic](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.getstatic) instruction loads a field reference onto the operand stack. The operand of `#7` is the index of the reference to the
 `System.out` field within the constant pool of the `test.Hello` class.
 
-The literal string "Hello world!" is pushed onto the operand stack with the [ldc](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.ldc) instruction. The operand of
-`#13` is the index of the string within the class constant pool.
+The String "Hello world!" is pushed onto the operand stack with the [ldc](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.ldc) instruction. The operand of
+`#13` is the index of the String within the class constant pool.
 
-At this point the operand stack contains the arguments to the `java.io.PrintStream.<println>` method - the receiver (the contents of the `System.out` field), and the string to write. The
+At this point the operand stack contains the arguments to the `java.io.PrintStream.<println>` method - the receiver (the contents of the `System.out` field), and the String to write. The
 method is invoked with [invokevirtual](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-6.html#jvms-6.5.invokevirtual) using the method reference in the class constant pool.
