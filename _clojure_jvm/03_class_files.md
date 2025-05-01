@@ -8,7 +8,7 @@ Here's the simple Java class from the previous chapter:
 
 __Hello.java__
 {% highlight java %}
-{% include code/basic_java/Hello.java %}
+{% include code/basic_java/Hello.java -%}
 {% endhighlight %}
 
 When compiled with `javac`:
@@ -18,7 +18,7 @@ When compiled with `javac`:
 it creates a `test/Hello.class` file in the current directory. Opening this file with `javap` shows a brief summary of the `test.Hello` class:
 
 ```
-{% include code/basic_java/hello_summary %}
+{% include code/basic_java/hello_summary -%}
 ```
 
 The `.class` file contains all the information required to load the class and execute its methods. The full contents of the file can be displayed
@@ -29,7 +29,7 @@ using the `-verbose` option:
 This shows much more detail:
 
 ```
-{% include code/basic_java/hello_full %}
+{% include code/basic_java/hello_full -%}
 ```
 
 The format of `.class` files is described in full in the [JVM specification](https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-4.html).
@@ -54,7 +54,7 @@ Note `.class` files are stored in big-endian order which may differ from the arc
     od --endian=big -x test/Hello.class
 
 ```
-{% include code/basic_java/hello_dump %}
+{% include code/basic_java/hello_dump -%}
 ```
 
 ## Version number
@@ -63,7 +63,7 @@ The first information displayed by `javap` is the major and minor version of the
 which means it is only supported by versions 14 or higher of the JVM. Attempting to load this class on an older version of the JVM will result in an error e.g.
 
 ```
-{% include code/basic_java/version_error %}
+{% include code/basic_java/version_error -%}
 ```
 
 ## Class properties 
@@ -78,7 +78,7 @@ code. These names and their types are recorded in the constant pool.
 
 ### Binary names
 
-The format of binary names within `.class` files differs slightly from those in `.java` files. The `.` separator used by Java is replaced within `.class` files.
+The format of binary names within `.class` files differs slightly from those in `.java` files. The `.`&nbsp;separator used by Java is replaced within `.class` files.
 For example the class `java.lang.Object` will be refered to as `java/lang/Object` within class files.
 
 ### Descriptors

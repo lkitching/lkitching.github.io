@@ -58,21 +58,21 @@ This error usually occurs when an application is compiled against one version of
 
 **version1/Greeter.java**
 ```java
-{% include code/common_issues/version1/Greeter.java %}
+{% include code/common_issues/version1/Greeter.java -%}
 ```
 
 After some time, a new version of this class is created with a new method:
 
 **version2/Greeter.java**
 ```java
-{% include code/common_issues/version2/Greeter.java %}
+{% include code/common_issues/version2/Greeter.java -%}
 ```
 
 An application is created which uses the newer version:
 
 **GreetApp.java**
 ```java
-{% include code/common_issues/GreetApp.java %}
+{% include code/common_issues/GreetApp.java -%}
 ```
 
 Compiling both class versions and the application against the newer version
@@ -91,7 +91,7 @@ Running with the old version on the classpath results in an error:
 
 ```
 > java -cp .:version1 GreetApp
-{% include code/common_issues/nosuchmethoderror.txt %}
+{% include code/common_issues/nosuchmethoderror.txt -%}
 ```
 
 Some libraries deprecate and subsequently remove methods from classes, so it is possible that

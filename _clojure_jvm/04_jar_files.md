@@ -22,24 +22,24 @@ After some back-and-forth, we settle on defining interfaces for sources and dest
 
 __src/libhello/MessageSource.java__
 ``` java
-{% include code/jar/src/libhello/MessageSource.java %}
+{% include code/jar/src/libhello/MessageSource.java -%}
 ```
 
 __src/libhello/MessageSink.java__
 ``` java
-{% include code/jar/src/libhello/MessageSink.java %}
+{% include code/jar/src/libhello/MessageSink.java -%}
 ```
 
 In addition, we define a source of messages read from the command-line, and a sink which writes messages to a `PrintStream`:
 
 __src/libhello/CommandLineMessageSource.java__
 ```java
-{% include code/jar/src/libhello/CommandLineMessageSource.java %}
+{% include code/jar/src/libhello/CommandLineMessageSource.java -%}
 ```
 
 __src/libhello/PrintStreamMessageSink.java__
 ```java
-{% include code/jar/src/libhello/PrintStreamMessageSink.java %}
+{% include code/jar/src/libhello/PrintStreamMessageSink.java -%}
 ```
 
 We compile these classes as usual and output the corresponding class files to the `libhello` directory:
@@ -62,7 +62,7 @@ This shows the archive contains the `.class` files as their expected locations o
 This file is called the _manifest_ file and is described [below](#manifest-files).
 
 ```
-{% include code/jar/jar_list %}
+{% include code/jar/jar_list -%}
 ```
 
 Note that JAR files are also zip files, so their contents can be listed with the `unzip` command:
@@ -73,7 +73,7 @@ Now we have build our library, we can re-write our application to use it:
 
 __src/app/Echo.java__
 ```java
-{% include code/jar/src/app/Echo.java %}
+{% include code/jar/src/app/Echo.java -%}
 ```
 
 As before, we compile it with `javac`. Since the application references the classes in `libhello.jar`, we have to place it on the classpath
@@ -89,7 +89,7 @@ available by adding the jar file to the classpath. We also add the build output 
 As expected, the application reads each message from the command line and writes it to the console
 
 ```
-{% include code/jar/app_output %}
+{% include code/jar/app_output -%}
 ```
 
 Of course we should also create a JAR for the application:
@@ -113,7 +113,7 @@ The `jar` tool can be used to extract the contents of the default manifest file:
 this is fairly minimal by default:
 
 ```
-{% include code/jar/default_manifest.mf %}
+{% include code/jar/default_manifest.mf -%}
 ```
 
 There are two additional manifest properties we would like to set when building the application JAR:
@@ -125,7 +125,7 @@ We can add these properties to a file to be added to the manifest when building 
 
 __echo-manifest.mf__
 ```
-{% include code/jar/echo-manifest.mf %}
+{% include code/jar/echo-manifest.mf -%}
 ```
 
     > jar --create --file echo.jar --manifest=echo-manifest.mf -C classes/app .
@@ -154,7 +154,7 @@ since all classes are contained within the new JAR.
 
 __uber-manifest.mf__
 ```
-{% include code/jar/uber-manifest.mf %}
+{% include code/jar/uber-manifest.mf -%}
 ```
 
 We can now build the new JAR:

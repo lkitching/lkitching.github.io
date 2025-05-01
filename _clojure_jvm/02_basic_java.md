@@ -8,7 +8,7 @@ Interfaces can declare any number of super-interfaces, along with methods that i
 
 __Hello.java__
 {% highlight java %}
-{% include code/basic_java/Hello.java %}
+{% include code/basic_java/Hello.java -%}
 {% endhighlight %}
 
 This defines a class `Hello` in the package `test`. This class contains a single static `main` method which writes a short message to the console.
@@ -78,7 +78,7 @@ disk. They can be loaded from the network, a database or defined dynamically dep
 core Java classes and loads them as required.
 
 Older JVMs (before version 9) did ship core Java classes in a Java archive. This was usually located at `jre/lib/rt.jar` within the JVM distribution. The bootstrap class loader
-was additionally configured with a 'bootstrap classpath' containing this core archive. Since the advent of Java modules in Java 9, core classes are distributed in a more efficient
+was additionally configured with a 'bootstrap classpath' containing this core archive. Since the advent of Java modules in Java&nbsp;9, core classes are distributed in a more efficient
 format.
 
 You can tell the `java` command to log more information on the class loading process with the `-verbose` option.

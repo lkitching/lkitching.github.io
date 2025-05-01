@@ -9,7 +9,7 @@ classpath to make them all available.
 
 The existing Java ecosystem is built around publishing JARs to binary repositories, and, like Java, Clojure code can be packaged into JAR files, 
 whether it has been compiled ahead-of-time or is being distributed as source. Many Clojure libraries are published to the [Clojars](https://clojars.org/)
-repository instead of Maven Central. However, since directories can be placed on the classpath, and Clojure code can be located
+repository instead of Maven&nbsp;Central. However, since directories can be placed on the classpath, and Clojure code can be located
 and evaluated directly from source, the extra packaging and publish steps are not necessary for developing Clojure libraries and programs.
 
 The [tools.deps](https://github.com/clojure/tools.deps) library is used to declare dependencies from various sources and build the required
@@ -18,34 +18,36 @@ classpath for execution.
 ## Basic example
 
 In the previous two chapters, we fetched the required Clojure JARs locally, and added them along with our source directories to the classpath
-when executing the program. This can be simplified by using the Clojure CLI and deps.
+when executing the program. This can be simplified by using the Clojure&nbsp;CLI and deps.
 
-First install the [Clojure CLI](https://clojure.org/guides/install_clojure) from the instructions on the Clojure site. After installation, running
+First install the [Clojure&nbsp;CLI](https://clojure.org/guides/install_clojure) from the instructions on the Clojure site. After installation, running
 the `clojure` command should start a Clojure REPL:
 
 ```
 > clojure
+Clojure 1.11.1
 user=> (+ 1 2)
 3
+user=>
 ```
 
 Now we can create a basic deps project. The structure of the project is defined in a `deps.edn` file in the project root directory.
 
 **deps.edn**
 ```clojure
-{% include code/deps/basic/deps.edn %}
+{% include code/deps/basic/deps.edn -%}
 ```
 
-This declares a dependency on the main `clojure` JAR. This JAR is published to Maven Central so should be resolved as a Maven dependency.
+This declares a dependency on the main `clojure` JAR. This JAR is published to Maven&nbsp;Central so should be resolved as a Maven dependency.
 This JAR and all of its transitive dependencies should be available on the classpath at runtime. The `src` directory should also be placed
 on the classpath since that is where our application namespaces are defined. Define the main namespace within this directory:
 
 **src/greet/main.clj**
 ```clojure
-{% include code/deps/basic/src/greet/main.clj %}
+{% include code/deps/basic/src/greet/main.clj -%}
 ```
 
-The `clojure` CLI allows us to invoke `clojure.main` with the project classpath with the `-M` option:
+The `clojure`&nbsp;CLI allows us to invoke `clojure.main` with the project classpath with the `-M` option:
 
 ```
 > clojure -M -m greet.main everyone
@@ -70,6 +72,7 @@ refered to as the `system` and `user` files. You can find the locations of all t
 > clojure -Sdescribe
 {:version "1.11.1.1267"
  :config-files ["/install/dir/deps.edn", "~/.clojure/deps.edn", "deps.edn"]
+ ,,,}
 ```
 
 If you open the first of these (the system project file), you will see it has default settings for the `:paths` and `:deps` properties
@@ -80,7 +83,8 @@ If you open the first of these (the system project file), you will see it has de
  :deps {
    org.clojure/clojure {:mvn/version "1.11.1"}
  }
- ...
+ ,,,
+}
 ```
 
 This means we could use these defaults in our project and our project `deps.edn` file could simply contain
@@ -94,20 +98,21 @@ This means we could use these defaults in our project and our project `deps.edn`
 
 At different points of the development process, you might want to make additional dependencies available or add more directories to the classpath.
 This can be done by specifying _aliases_ within the project `deps.edn` and supplying them to the `clojure` command where required. For example, during
-development, you might want to use [scope capture](https://github.com/vvvvalvalval/scope-capture) to help with debugging at the REPL. This isn't a dependency
+development, you might want to use [scope&nbsp;capture](https://github.com/vvvvalvalval/scope-capture) to help with debugging at the REPL. This isn't a dependency
 of the main application, so shouldn't be distributed with it.
 
 You can define a `dev` alias within the project `deps.edn` file
 
 **deps.edn**
 ```clojure
-{% include code/deps/aliases/deps.edn %}
+{% include code/deps/aliases/deps.edn -%}
 ```
 
 Then supply it when starting the REPL:
 
 ```
 > clojure -A:dev
+Clojure 1.11.1
 user=> (require '[sc.api :as sc])
 nil
 user=>
@@ -115,7 +120,7 @@ user=>
 
 ## Other dependency sources
 
-The Clojure JARs are published to Maven Central so are declared as Maven dependencies in the previous `deps.edn`. Deps supports other dependency
+The Clojure JARs are published to Maven&nbsp;Central so are declared as Maven dependencies in the previous `deps.edn`. Deps supports other dependency
 types such as Git repositories and local directories.
 
 We've decided to improve our greeting application by adding an optional command-line flag to show enthusiasm (or not). We also decided to split the
@@ -126,12 +131,12 @@ We define the library first:
 
 **lib/deps.edn**
 ```clojure
-{% include code/deps/sources/lib/deps.edn %}
+{% include code/deps/sources/lib/deps.edn -%}
 ```
 
 **lib/src/greet/core.clj**
 ```clojure
-{% include code/deps/sources/lib/src/greet/core.clj %}
+{% include code/deps/sources/lib/src/greet/core.clj -%}
 ```
 
 We decide to use [tools.cli](https://github.com/clojure/tools.cli) for the command-line parsing. We need to use a specific commit for legal reasons, so
@@ -139,12 +144,12 @@ add it as a Git dependency rather than depend on the published JAR. This results
 
 **main/deps.edn**
 ```clojure
-{% include code/deps/sources/main/deps.edn %}
+{% include code/deps/sources/main/deps.edn -%}
 ```
 
 **main/src/greet/main.clj**
 ```clojure
-{% include code/deps/sources/main/src/greet/main.clj %}
+{% include code/deps/sources/main/src/greet/main.clj -%}
 ```
 
 This can then be run as before:

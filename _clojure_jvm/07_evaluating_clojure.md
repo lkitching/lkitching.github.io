@@ -52,7 +52,7 @@ If we define the above namespace
 
 **src/org/picosoft/lib_hello/core.clj**
 ```java
-{% include code/evaluating_clojure/src/org/picosoft/lib_hello/core.clj %}
+{% include code/evaluating_clojure/src/org/picosoft/lib_hello/core.clj -%}
 ```
 
 and place it in the appropriate place on the classpath, we can invoke it via `clojure.main`

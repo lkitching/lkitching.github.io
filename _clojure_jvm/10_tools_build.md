@@ -28,14 +28,14 @@ Then define the Java library:
 
 **java/src/com/picosoft/greet/Greeter.java**
 ```java
-{% include code/build/java/src/com/picosoft/greet/Greeter.java %}
+{% include code/build/java/src/com/picosoft/greet/Greeter.java -%}
 ```
 
 The main Clojure namespace imports this class for the greet implementation
 
 **clojure/src/greet/main.clj**
 ```clojure
-{% include code/build/clojure/src/greet/main.clj %}
+{% include code/build/clojure/src/greet/main.clj -%}
 ```
 
 The Clojure source location needs to be specified in the `deps.edn` file along with the `tools.cli` dependency. There is also
@@ -43,14 +43,14 @@ a `build` alias used by our build definition.
 
 **deps.edn**
 ```clojure
-{% include code/build/deps.edn %}
+{% include code/build/deps.edn -%}
 ```
 
 Finally our `tools.build` script defines an `uber` task which compiles the Java and Clojure code and packages it into an uberjar.
 
 **build.clj**
 ```clojure
-{% include code/build/build.clj %}
+{% include code/build/build.clj -%}
 ```
 
 This task can be invoked with

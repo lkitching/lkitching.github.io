@@ -23,7 +23,7 @@ After a frenetic caffeine-fueled 10-hour coding session, we finally have our new
 
 __src/libhello/JSONMessageSource.java__
 ```
-{% include code/java_dependencies/JSONMessageSource.java %}
+{% include code/java_dependencies/JSONMessageSource.java -%}
 ```
 
 As before, we compile the library, updating the build classpath to include the dependency JAR:
@@ -35,12 +35,12 @@ We write a small test application and data file for the new source
 
 __EchoJSON.java__
 ```java
-{% include code/java_dependencies/EchoJSON.java %}
+{% include code/java_dependencies/EchoJSON.java -%}
 ```
 
 __messages.json__
 ```json
-{% include code/java_dependencies/messages.json %}
+{% include code/java_dependencies/messages.json -%}
 ```
 
 and run it to check the input messages are displayed as expected:
@@ -78,7 +78,7 @@ where JARs can be published and retrieved, along with their dependencies.
 
 Maven projects are defined by a Project Object Model (POM) file in XML format called `pom.xml`. This defines all aspects of the project, such as
 where to find source and test files, build and packaging information, and dependency definitions. All project `pom.xml` files implicitly inherit
-from a '[super POM](https://maven.apache.org/ref/3.0.4/maven-model-builder/super-pom.html)' file defined by the Maven distribution. This defines
+from a '[super&nbsp;POM](https://maven.apache.org/ref/3.0.4/maven-model-builder/super-pom.html)' file defined by the Maven distribution. This defines
 the standard layout of a Maven project.
 
 ### Dependencies
@@ -109,7 +109,7 @@ determined by the artifact packaging type - this is usually `jar` for Java artif
 
 #### Maven Central
 
-Maven defines a single repository `central` in the [super POM](https://maven.apache.org/ref/3.0.4/maven-model-builder/super-pom.html). This is located at `http://repo.maven.apache.org/maven2` and it means that Maven
+Maven defines a single repository `central` in the [super&nbsp;POM](https://maven.apache.org/ref/3.0.4/maven-model-builder/super-pom.html). This is located at `http://repo.maven.apache.org/maven2` and it means that Maven
 projects can reference dependencies published to this repository without any further configuration.
 
 #### Local repositories
@@ -120,7 +120,7 @@ Therefore, version `0.2.6` of the `data.json` JAR would be fetched to `~/.m2/rep
 ## Maven library development
 
 Now that we understand the basics of Maven we can create a project for our library. First we create a directory for the project and set it up in the
-standard Maven layout. As defined in the [super POM](https://maven.apache.org/ref/3.0.4/maven-model-builder/super-pom.html), Java source files go under
+standard Maven layout. As defined in the [super&nbsp;POM](https://maven.apache.org/ref/3.0.4/maven-model-builder/super-pom.html), Java source files go under
 `${project.basedir}/src/main/java`.
 
 ```
@@ -139,14 +139,14 @@ Our `pom.xml` file defines the coordinates for the library itself along with its
 
 **pom.xml**
 ```xml
-{% include code/java_dependencies/maven/pom.xml %}
+{% include code/java_dependencies/maven/pom.xml -%}
 ```
 
 Now we can compile and package the library as a JAR:
 
     mvn package
 
-The super POM sets the default build directory to `${project.basedir}/target` and if we look there we can see a `libhello-1.0.0.jar` file has been
+The super&nbsp;POM sets the default build directory to `${project.basedir}/target` and if we look there we can see a `libhello-1.0.0.jar` file has been
 created.
 
 This can be installed into our local repository with
@@ -174,7 +174,7 @@ json-test/
 
 **pom.xml**
 ```xml
-{% include code/java_dependencies/app/pom.xml %}
+{% include code/java_dependencies/app/pom.xml -%}
 ```
 
 The application POM declares a dependency on the version of the library we want to use. As before the JAR can be built with
@@ -207,17 +207,17 @@ during development:
 
     mvn exec:java -Dexec.mainClass=test.EchoJSON -Dexec.args="messages.json"
 
-Another option is to build uber JARs using the [Maven shade plugin](https://maven.apache.org/plugins/maven-shade-plugin/index.html).
+Another option is to build uber&nbsp;JARs using the [Maven shade plugin](https://maven.apache.org/plugins/maven-shade-plugin/index.html).
 
 ## Publishing
 
 Now the library and application are working locally, it's time to share the library with our colleagues. Our chief architect is convinced
 it constitutes a key competitive advantage for the company and is unwilling to unleash it on an unsuspecting public. She arranges for a private
-Maven repository to be set up, and our CI process to publish there instead of the Maven Central repository. We advise any teams wishing to use
+Maven repository to be set up, and our CI process to publish there instead of the Maven&nbsp;Central repository. We advise any teams wishing to use
 it to configure the private repository in their application POM files with the following fragment:
 
 ```xml
-{% include code/java_dependencies/private_repository.xml %}
+{% include code/java_dependencies/private_repository.xml -%}
 ```
 
 ### Repository settings
@@ -229,5 +229,5 @@ repository, we just need to configure the credentials to use:
 
 **~/.m2/settings.xml**
 ```xml
-{% include code/java_dependencies/settings.xml %}
+{% include code/java_dependencies/settings.xml -%}
 ```

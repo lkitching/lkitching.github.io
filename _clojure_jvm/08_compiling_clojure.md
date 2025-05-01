@@ -9,7 +9,7 @@ two classes with `gen-class`:
 
 **src/greet.clj**
 ```clojure
-{% include code/compiling_clojure/greet/src/greet.clj %}
+{% include code/compiling_clojure/greet/src/greet.clj -%}
 ```
 
 This can be compiled with the [compile](https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/compile) function. As described in the documentation,
@@ -26,12 +26,12 @@ with `javap`:
 
 **greet.Greeter**
 ```java
-{% include code/compiling_clojure/Greeter_decompiled.java %}
+{% include code/compiling_clojure/Greeter_decompiled.java -%}
 ```
 
 **greet.main**
 ```java
-{% include code/compiling_clojure/main_decompiled.java %}
+{% include code/compiling_clojure/main_decompiled.java -%}
 ```
 
 The generated class methods simply delegate to Clojure functions with the appropriately-prefixed names. For example the `greet.Greeter` class defines a function prefix
@@ -57,12 +57,12 @@ This allows us to write straightforward Clojure code which is compiled into a Ja
 
 **src/greet/core.clj**
 ```clojure
-{% include code/compiling_clojure/main/src/greet/core.clj %}
+{% include code/compiling_clojure/main/src/greet/core.clj -%}
 ```
 
 **src/greet/main.clj**
 ```clojure
-{% include code/compiling_clojure/main/src/greet/main.clj %}
+{% include code/compiling_clojure/main/src/greet/main.clj -%}
 ```
 
 This can be compiled and run as before:
@@ -81,7 +81,7 @@ the application source files and any compiled classes. As before, we need to def
 
 **manifest.mf**
 ```
-{% include code/compiling_clojure/uberjar/manifest.mf %}
+{% include code/compiling_clojure/uberjar/manifest.mf -%}
 ```
 
 The fat JAR can then be built with
